@@ -1,22 +1,35 @@
 import bpy
 
-# Set the structure name and starting alpha value
-structure_name = "Cav"
-starting_alpha = 0
+colorIndex = [
+(0.03, 0, 0.6, 1), #PR(cone) = [0]
+(0.6, 0.5, 0, 1), #PR(ind) = [1]
+(0, 0.5, 0.4, 1), #PR(rod) = [2]
+(0, 1, 0, 1), #AiiGAC = [3]
+(0, 0.08, 1, 1), #CBa = [4]
+(0, 0.8, 0.5, 1), #CBb = [5]
+(0.02, 0, 1, 1), #RodBC = [6]
+(0.2, 0, 0, 1), #GC = [7]
+(0.6, 0.7, 0, 1), #HC = [8]
+(0.319, .284, 0.046, 1), #MC = [9]
+(1, 0, 0, 1), #yAC = [10]
+(0.907, 0, 0.929, 1), #AJ = [11]
+(0, 0.929, .308, 1), #Cav = [12]
+(1, 0, 0, 1), #GAdj_Inhib = [13]
+(0, 1, 0, 1), #GAdj_Ribbon = [14]
+(0.104, 0, 1, 1), #NGAJ = [15]
+]
+#create a material you'll be coloring
+mat = bpy.data.materials.new(name='color')
+mat.use_nodes = True
+bsdf = mat.node_tree.nodes["Principled BSDF"]
+bsdf.inputs['Base Color'].default_value = colorIndex[9]
+mat.blend_method = 'BLEND'
+mat.use_backface_culling = False
+mat.show_transparent_back = False
 
-# Iterate over all objects in the scene
-for obj in bpy.context.scene.objects:
-    # Check if the object's name contains the structure name
-    if structure_name in obj.name:
-        # Get the material of the object
-        mat = obj.active_material
-        # Set the starting alpha value (Alpha is node.inputs 21)
-        mat.node_tree.nodes["Principled BSDF"].inputs[21].default_value = starting_alpha
-        # Insert keyframe for the starting alpha value
-        mat.node_tree.nodes["Principled BSDF"].inputs[21].keyframe_insert("default_value", frame=420)
-        # Set the new alpha value
-        new_alpha = 1
-        mat.node_tree.nodes["Principled BSDF"].inputs[21].default_value = new_alpha
-        # Insert keyframe for the new alpha value
-        mat.node_tree.nodes["Principled BSDF"].inputs[21].keyframe_insert("default_value", frame=450)
+#iterate over objects in scene
+for o in bpy.context.scene.objects:
+    if "MC" in o.name:
+        #Set the created material as the active material
+        o.active_material = mat
 
