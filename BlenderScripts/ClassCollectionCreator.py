@@ -1,7 +1,7 @@
 import bpy
 
 #Only the variable cell_class needs to be changed between cell types being categorized, make sure its something unique to all of the cells you want in a single collection
-cell_class = 'Aii'
+cell_class = 'GACAii'
 #create a collection folder to move the cell class to
 New = bpy.data.collections.new(cell_class)
 bpy.context.scene.collection.children.link(New)

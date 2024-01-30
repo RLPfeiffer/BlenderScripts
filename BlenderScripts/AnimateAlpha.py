@@ -19,4 +19,3 @@ for obj in bpy.context.scene.objects:
         mat.node_tree.nodes["Principled BSDF"].inputs[21].default_value = new_alpha
         # Insert keyframe for the new alpha value
         mat.node_tree.nodes["Principled BSDF"].inputs[21].keyframe_insert("default_value", frame=450)
-

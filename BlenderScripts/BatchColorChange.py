@@ -25,11 +25,10 @@ bsdf = mat.node_tree.nodes["Principled BSDF"]
 bsdf.inputs['Base Color'].default_value = colorIndex[9]
 mat.blend_method = 'BLEND'
 mat.use_backface_culling = False
-mat.show_transparent_back = False
+mat.show_transparent_back = True
 
 #iterate over objects in scene
 for o in bpy.context.scene.objects:
     if "MC" in o.name:
         #Set the created material as the active material
         o.active_material = mat
-
